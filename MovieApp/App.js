@@ -18,9 +18,14 @@ import {
 } from 'react-native';
 import DetailsScreen from './components/DetailsScreen';
 import HomeScreen from './components/HomeScreen';
+import {NavigationContainer} from '@react-navigation/native';
 
 const App = () => {
-  return <DetailsScreen></DetailsScreen>;
+  return (
+    <NavigationContainer>
+      <DetailsScreen></DetailsScreen>
+    </NavigationContainer>
+  );
 };
 
 export default App;
