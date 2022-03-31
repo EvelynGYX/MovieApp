@@ -1,12 +1,15 @@
 import React from 'react';
 import {SafeAreaView, Image, Text, StyleSheet} from 'react-native';
 
-// step 4
-const DetailsScreen = () => {
+// step 5 and 7
+const DetailsScreen = ({navigation, route}) => {
+  const {movieId} = route.params;
+
   return (
     <SafeAreaView>
       <Image style={styles.image} />
       <Text>Details Screen</Text>
+      <Text>{JSON.stringify(movieId)}</Text>
     </SafeAreaView>
   );
 };

@@ -9,11 +9,20 @@ import {
 } from 'react-native';
 import movies from '../mocks/movieList.json';
 
-// step 1 and 4
-const HomeScreen = () => {
+// step 1 and 4 and 7
+const HomeScreen = ({navigation}) => {
   const styles = homeScreenStyles;
   const moviesData = movies.results;
   const [title, setTitle] = useState('Popular Movies');
+
+  const onPress = movieId => {
+    navigation.navigate({
+      name: 'Details',
+      params: {
+        movieId: movieId,
+      },
+    });
+  };
 
   return (
     <SafeAreaView>
@@ -22,7 +31,7 @@ const HomeScreen = () => {
       {/* step 2 */}
       {/* <MovieItem /> */}
       {/* step 3 */}
-      <MovieList moviesData={moviesData} />
+      <MovieList moviesData={moviesData} onPress={onPress} />
     </SafeAreaView>
   );
 };
@@ -30,7 +39,7 @@ const HomeScreen = () => {
 // step 3
 const MovieList = props => {
   // const moviesData = movies.results;
-  const {moviesData} = props;
+  const {moviesData, onPress} = props;
   const uriPrefix = 'https://image.tmdb.org/t/p/w500';
 
   return (
@@ -38,8 +47,10 @@ const MovieList = props => {
       data={moviesData}
       renderItem={({item}) => (
         <MovieItem
+          id={item.id}
           uri={`${uriPrefix}${item.backdrop_path}`}
           title={item.title}
+          onPress={onPress}
         />
       )}
     />
@@ -49,11 +60,11 @@ const MovieList = props => {
 // step 2
 const MovieItem = props => {
   const styles = movieItemStyles;
-  const {uri, title} = props;
+  const {id, uri, title, onPress} = props;
   // const uri = `https://image.tmdb.org/t/p/w500${movies.results[0].backdrop_path}`;
   // const title = movies.results[0].title;
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={() => onPress(id)}>
       <Image style={styles.image} source={{uri: uri}} />
       <Text style={styles.title}>{title}</Text>
     </TouchableOpacity>
